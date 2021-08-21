@@ -63,9 +63,10 @@ class ExecCommand(EnvCommand):
             return 1
 
         full_cmd = f"{cmd} {' '.join(self.argument('arguments'))}"
+        shell = os.environ.get("SHELL", "/bin/sh")
 
         self.line(dim(f"Exec: {full_cmd}\n"))
-        result = self.env.execute(*[os.environ["SHELL"], "-c", full_cmd])
+        result = self.env.execute(*[shell, "-c", full_cmd])
 
         # NOTE: If running on mac or linux nothing will be executed after the previous line. This
         # is because poetry uses os.execvpe to run the command which means that the current process
