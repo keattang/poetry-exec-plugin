@@ -29,17 +29,8 @@ class ExecCommand(EnvCommand):
     ]
 
     def handle(self) -> Any:
-        pyproject_path = pathlib.Path("pyproject.toml")
-
-        if not pyproject_path.exists():
-            self.line_error(
-                red(
-                    "Unable to find a pyproject.toml file. Please make sure to run this command in "
-                    "the same folder as your project's pyproject.toml file."
-                )
-            )
-
-        pyproject_data = toml.load(pyproject_path)
+        pyproject_foler_path = self.poetry.pyproject._file.path.parent
+        pyproject_data = self.poetry.pyproject.data
 
         cmd_name = self.argument("cmd")
         cmd = (
@@ -64,6 +55,11 @@ class ExecCommand(EnvCommand):
 
         full_cmd = f"{cmd} {' '.join(self.argument('arguments'))}"
         shell = os.environ.get("SHELL", "/bin/sh")
+
+        # Change directory to the folder that contains the pyproject.toml so that the command runs
+        # from that folder (even if you call poetry exec from a subfolder). This mimics the
+        # behaviour of npm/yarn.
+        os.chdir(pyproject_foler_path)
 
         self.line(dim(f"Exec: {full_cmd}\n"))
         result = self.env.execute(*[shell, "-c", full_cmd])
