@@ -20,7 +20,7 @@ hello-world = "TEXT=hello-world; echo $TEXT"
 lint = "flake8"
 ```
 
-This will define a script that you can then execute with the `poetry exec <script>` command. This will execute your script inside of the environment that poetry creates for you, allowing you to access the dependencies installed for your project. For example:
+This will define a script that you can then execute with the `poetry exec <script>` command. This will execute your script inside of the environment that poetry creates for you, allowing you to access the dependencies installed for your project. The script will also always run from the same directory as your `pyproject.toml` file. This mimics the behaviour of npm/yarn. For example:
 
 ```bash
 $ poetry exec hello-world

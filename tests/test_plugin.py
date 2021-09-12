@@ -1,9 +1,9 @@
 from cleo.testers.command_tester import CommandTester
-from cleo.application import Application
 
 from poetry_exec_plugin.plugin import ExecCommand
 
 from poetry.utils.env import MockEnv
+from poetry.console.application import Application
 
 from pathlib import Path
 
