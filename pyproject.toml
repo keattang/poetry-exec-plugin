@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-exec-plugin"
-version = "0.3.1"
+version = "0.3.2"
 description = "A plugin for poetry that allows you to execute scripts defined in your pyproject.toml, just like you can in npm or pipenv."
 authors = ["keattang"]
 license = "MIT"
