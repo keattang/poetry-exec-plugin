@@ -27,7 +27,7 @@ class ExecCommand(EnvCommand):
     ]
 
     def handle(self) -> Any:
-        pyproject_foler_path = self.poetry.pyproject._file.path.parent
+        pyproject_folder_path = self.poetry.pyproject._file.path.parent
         pyproject_data = self.poetry.pyproject.data
 
         cmd_name = self.argument("cmd")
@@ -57,7 +57,7 @@ class ExecCommand(EnvCommand):
         # Change directory to the folder that contains the pyproject.toml so that the command runs
         # from that folder (even if you call poetry exec from a subfolder). This mimics the
         # behaviour of npm/yarn.
-        os.chdir(pyproject_foler_path)
+        os.chdir(pyproject_folder_path)
 
         self.line(dim(f"Exec: {full_cmd}\n"))
         result = self.env.execute(*[shell, "-c", full_cmd])
