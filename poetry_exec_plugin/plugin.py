@@ -14,7 +14,7 @@ from typing import Any
 class ExecCommand(EnvCommand):
 
     name = "exec"
-    description = "Execute a predefined command from your pyproject.toml"
+    description = "Execute a predefined command from your pyproject.toml."
 
     arguments = [
         argument("cmd", "The command to run from your pyproject.toml.", multiple=False),
