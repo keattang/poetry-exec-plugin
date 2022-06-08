@@ -1,4 +1,6 @@
 import os
+import shlex
+import sys
 
 from cleo.helpers import argument
 from cleo.application import Application
@@ -8,7 +10,16 @@ from poetry.plugins.application_plugin import ApplicationPlugin
 
 from simple_chalk import dim, red
 
-from typing import Any
+from typing import Any, List
+
+
+def shlex_join(cmd_list: List[str]) -> str:
+    if sys.version_info < (3, 8):
+        # shlex.join has been introduced in Python 3.8
+        # https://github.com/python/cpython/blob/3.9/Lib/shlex.py#L318
+        return " ".join(shlex.quote(x) for x in cmd_list)
+    else:
+        return shlex.join(cmd_list)
 
 
 class ExecCommand(EnvCommand):
@@ -51,7 +62,7 @@ class ExecCommand(EnvCommand):
             )
             return 1
 
-        full_cmd = f"{cmd} {' '.join(self.argument('arguments'))}"
+        full_cmd = f"{cmd} {shlex_join(self.argument('arguments'))}"
         shell = os.environ.get("SHELL", "/bin/sh")
 
         # Change directory to the folder that contains the pyproject.toml so that the command runs

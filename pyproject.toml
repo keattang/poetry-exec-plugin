@@ -15,17 +15,15 @@ simple-chalk = "^0.1.0"
 toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
-black = "^21.7-beta.0"
+black = "^22.3.0"
 flake8 = "^3.9.2"
 mypy = "^0.910"
 pytest = "^6.2.4"
-pytest-mock = "^3.6.1"
 types-toml = "^0.1.5"
 
 [tool.poetry-exec-plugin.commands]
 lint = "flake8 && black --check . && mypy ."
 test = "pytest"
-test-script = "echo Hello World" # Used in tests
 
 [tool.poetry.plugins."poetry.application.plugin"]
 exec = "poetry_exec_plugin.plugin:ExecPlugin"
