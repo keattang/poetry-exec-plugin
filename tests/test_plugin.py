@@ -1,21 +1,49 @@
-from cleo.testers.command_tester import CommandTester
-
-from poetry_exec_plugin.plugin import ExecCommand
-
-from poetry.utils.env import MockEnv
-from poetry.console.application import Application
-
-from pathlib import Path
+import os
+import pathlib
+import subprocess
 
 
-def test_execute() -> None:
-    application = Application()
-    command_instance = ExecCommand()
-    command_instance.set_env(MockEnv(path=Path("/prefix"), base=Path("/base/prefix"), is_venv=True))
-    application.add(command_instance)
+def minimal_pyproject_template(commands_section: str) -> str:
+    return f"""[tool.poetry]
+name = "foo"
+version = "1.0.0"
+description = "Foo"
+authors = ["bar"]
 
-    command = application.find("exec")
-    command_tester = CommandTester(command)
-    command_tester.execute("test-script")
+[tool.poetry-exec-plugin.commands]
+{commands_section}
+"""
 
-    assert "Hello World" in command_tester.io.fetch_output()
+
+def test_execute(tmp_path: pathlib.Path) -> None:
+    (tmp_path / "pyproject.toml").write_text(
+        minimal_pyproject_template("test-script = 'echo Hello World'"),
+    )
+    os.chdir(tmp_path)
+    proc = subprocess.Popen(
+        ["poetry", "exec", "test-script"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    out, err = proc.communicate()
+    assert b"Exec: echo Hello World" in out
+    assert b"\nHello World\n" in out
+    assert err == b""
+    assert proc.returncode == 0
+
+
+def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
+    (tmp_path / "pyproject.toml").write_text(
+        minimal_pyproject_template("test-script = 'printf'"),
+    )
+    os.chdir(tmp_path)
+    proc = subprocess.Popen(
+        ["poetry", "exec", "test-script", "--", "Hello World\n"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    out, err = proc.communicate()
+    assert b"Exec: printf 'Hello World\n'" in out
+    assert b"\nHello World\n" in out
+    assert err == b""
+    assert proc.returncode == 0
