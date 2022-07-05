@@ -8,8 +8,6 @@ from cleo.application import Application
 from poetry.console.commands.env_command import EnvCommand
 from poetry.plugins.application_plugin import ApplicationPlugin
 
-from simple_chalk import dim, red
-
 from typing import Any, List
 
 
@@ -51,14 +49,13 @@ class ExecCommand(EnvCommand):
 
         if not cmd:
             self.line_error(
-                red(
-                    f"\nUnable to find the command '{cmd_name}'. To configure a command you must "
-                    "add it to your pyproject.toml under the path "
-                    "[tool.poetry-exec-plugin.commands]. For example:"
-                    "\n\n"
-                    "[tool.poetry-exec-plugin.commands]\n"
-                    f'{cmd_name} = "echo Hello World"\n'
-                )
+                f"\nUnable to find the command '{cmd_name}'. To configure a command you must "
+                "add it to your pyproject.toml under the path "
+                "[tool.poetry-exec-plugin.commands]. For example:"
+                "\n\n"
+                "[tool.poetry-exec-plugin.commands]\n"
+                f'{cmd_name} = "echo Hello World"\n',
+                style="error",
             )
             return 1
 
@@ -70,7 +67,7 @@ class ExecCommand(EnvCommand):
         # behaviour of npm/yarn.
         os.chdir(pyproject_folder_path)
 
-        self.line(dim(f"Exec: {full_cmd}\n"))
+        self.line(f"Exec: {full_cmd}\n", style="info")
         result = self.env.execute(*[shell, "-c", full_cmd])
 
         # NOTE: If running on mac or linux nothing will be executed after the previous line. This
