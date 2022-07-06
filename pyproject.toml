@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-exec-plugin"
-version = "0.3.3"
+version = "0.3.4"
 description = "A plugin for poetry that allows you to execute scripts defined in your pyproject.toml, just like you can in npm or pipenv."
 authors = ["keattang"]
 license = "MIT"
@@ -11,7 +11,6 @@ repository = "https://github.com/keattang/poetry-exec-plugin"
 [tool.poetry.dependencies]
 poetry = "^1.2.0.a2"
 python = "^3.7"
-simple-chalk = "^0.1.0"
 toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
