@@ -66,14 +66,15 @@ def test_reuse_poetry_exec(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
 
+    expected_output = b"Hello World"
+
     proc = subprocess.Popen(
         ["poetry", "exec", "hello:poetry"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     out, err = proc.communicate()
-    assert b"Exec:  printf 'Hello ' && printf World"
-    assert b"Hello World" in out
+    assert expected_output in out
     assert err == b""
     assert proc.returncode == 0
 
@@ -83,7 +84,6 @@ def test_reuse_poetry_exec(tmp_path: pathlib.Path) -> None:
         stderr=subprocess.PIPE,
     )
     out, err = proc.communicate()
-    assert b"Exec:  printf 'Hello ' && printf World"
-    assert b"Hello World" in out
+    assert expected_output in out
     assert err == b""
     assert proc.returncode == 0
