@@ -38,6 +38,23 @@ def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
     proc = subprocess.Popen(
+        ["poetry", "exec", "test-script", "Hello World\n"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    out, err = proc.communicate()
+    assert b"Exec: printf 'Hello World\n'" in out
+    assert b"\nHello World\n" in out
+    assert err == b""
+    assert proc.returncode == 0
+
+
+def test_arguments_propagation_with_double_dash(tmp_path: pathlib.Path) -> None:
+    (tmp_path / "pyproject.toml").write_text(
+        minimal_pyproject_template("test-script = 'printf'"),
+    )
+    os.chdir(tmp_path)
+    proc = subprocess.Popen(
         ["poetry", "exec", "test-script", "--", "Hello World\n"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
