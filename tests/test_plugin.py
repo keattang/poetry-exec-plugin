@@ -75,6 +75,8 @@ def test_reuse_poetry_exec(tmp_path: pathlib.Path) -> None:
     )
     out, err = proc.communicate()
     assert expected_output in out
+    assert b"poetry" not in out
+    assert b"exec" not in out
     assert err == b""
     assert proc.returncode == 0
 
@@ -85,5 +87,7 @@ def test_reuse_poetry_exec(tmp_path: pathlib.Path) -> None:
     )
     out, err = proc.communicate()
     assert expected_output in out
+    assert b"poetry" not in out
+    assert b"exec" not in out
     assert err == b""
     assert proc.returncode == 0
