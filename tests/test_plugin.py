@@ -60,7 +60,11 @@ def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
     shutil.which("printf") is None,
     reason="printf binary is not available",
 )
-@pytest.mark.parametrize("resolve_poetry_exec", (True, False))
+@pytest.mark.parametrize(
+    "resolve_poetry_exec",
+    (True, False),
+    ids=("resolve-poetry-exec=true", "resolve-poetry-exec=false"),
+)
 def test_config_resolve_poetry_exec(tmp_path: pathlib.Path, resolve_poetry_exec: bool) -> None:
     commands_section = """print = "printf"
 "hello:poetry" = "poetry exec print 'Hello ' && poetry exec print 'World'"
