@@ -1,10 +1,9 @@
 import pathlib
 import shutil
 import subprocess
+from typing import Optional
 
 import pytest
-
-from typing import Optional
 
 
 def minimal_pyproject_template(commands_section: str, config_section: Optional[str] = None) -> str:
