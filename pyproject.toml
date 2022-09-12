@@ -23,6 +23,10 @@ types-toml = "^0.1.5"
 [tool.poetry-exec-plugin.commands]
 lint = "flake8 && black --check . && mypy ."
 test = "pytest"
+all = "poetry exec lint && poetry exec test"
+
+[tool.poetry-exec-plugin.config]
+resolve-poetry-exec = true
 
 [tool.poetry.plugins."poetry.application.plugin"]
 exec = "poetry_exec_plugin.plugin:ExecPlugin"

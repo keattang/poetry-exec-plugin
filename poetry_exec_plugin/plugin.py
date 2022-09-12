@@ -20,7 +20,7 @@ def shlex_join(cmd_list: List[str]) -> str:
         return shlex.join(cmd_list)
 
 
-def reuse_poetry_exec_calls(cmd: str, commands: Dict[str, str]) -> str:
+def resolve_poetry_exec_calls(cmd: str, commands: Dict[str, str]) -> str:
     """Replace internal `poetry exec` calls with the correspondent commands.
 
     Builds a new command string from the given one replacing `poetry exec <foo>`
@@ -68,7 +68,8 @@ class ExecCommand(EnvCommand):
         pyproject_data = self.poetry.pyproject.data
 
         cmd_name = self.argument("cmd")
-        commands = pyproject_data.get("tool", {}).get("poetry-exec-plugin", {}).get("commands", {})
+        pyproject_object = pyproject_data.get("tool", {}).get("poetry-exec-plugin", {})
+        commands = pyproject_object.get("commands", {})
         cmd = commands.get(cmd_name)
 
         if not cmd:
@@ -83,9 +84,13 @@ class ExecCommand(EnvCommand):
             )
             return 1
 
-        full_cmd = (
-            f"{reuse_poetry_exec_calls(cmd, commands)} {shlex_join(self.argument('arguments'))}"
-        )
+        config = pyproject_object.get("config", {})
+
+        if config.get("resolve-poetry-exec"):
+            resolved_cmd = resolve_poetry_exec_calls(cmd, commands)
+        else:
+            resolved_cmd = cmd
+        full_cmd = f"{resolved_cmd} {shlex_join(self.argument('arguments'))}"
         shell = os.environ.get("SHELL", "/bin/sh")
 
         # Change directory to the folder that contains the pyproject.toml so that the command runs

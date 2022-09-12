@@ -40,6 +40,21 @@ $ poetry exec lint --version
 3.9.2 (mccabe: 0.6.1, pycodestyle: 2.7.0, pyflakes: 2.3.1) CPython 3.9.0 on Darwin
 ```
 
+### Configuration
+
+You can configure the execution of the plugin at `tool.poetry-exec-plugin.config`
+in your *pyproject.toml* file.
+
+```toml
+[tool.poetry-exec-plugin.config]
+resolve-poetry-exec = true
+```
+
+The supported configuration fields are:
+
+- <a href="#config_resolve-poetry-exec">#</a> **resolve-poetry-exec** (*boolean*) ⇒ If enabled, when you call a command from another command, the `poetry exec <command>` invocation will be replaced by the final command speeding up the execution. By
+default is `false`.
+
 ## Publishing
 
 To publish a new version,first bump the package version in `pyproject.toml` and commit your changes to the `main` branch (via pull request). Then in GitHub create a new release with the new version as the tag and name. You can use the handy auto release notes feature to populate the release description.
