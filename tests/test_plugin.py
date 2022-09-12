@@ -18,7 +18,7 @@ authors = ["bar"]
 {commands_section}
 """
     if config_section is not None:
-        result += f"[tool.poetry-exec-plugin.config]\n{config_section}"
+        result += f"[tool.poetry-exec-plugin.config]\n{config_section}\n"
     return result
 
 
