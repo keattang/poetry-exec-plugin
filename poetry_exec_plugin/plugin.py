@@ -36,7 +36,7 @@ class ExecCommand(EnvCommand):
     ]
 
     def handle(self) -> Any:
-        pyproject_folder_path = self.poetry.pyproject._file.path.parent
+        pyproject_folder_path = self.poetry.pyproject.file.path.parent
         pyproject_data = self.poetry.pyproject.data
 
         cmd_name = self.argument("cmd")
