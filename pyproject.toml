@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-exec-plugin"
-version = "0.3.4"
+version = "0.3.6"
 description = "A plugin for poetry that allows you to execute scripts defined in your pyproject.toml, just like you can in npm or pipenv."
 authors = ["keattang"]
 license = "MIT"
@@ -23,7 +23,7 @@ types-toml = "^0.1.5"
 [tool.poetry-exec-plugin.commands]
 lint = "flake8 && black --check . && mypy ."
 test = "pytest"
-all = "poetry exec lint && poetry exec test"
+format = "black ."
 
 [tool.poetry-exec-plugin.config]
 resolve-poetry-exec = true
@@ -36,4 +36,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 100
+line-length = 85

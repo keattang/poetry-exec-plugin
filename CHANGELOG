@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+> Placeholder for any unreleased features/changes
+
+## [0.3.6] - 2023-06-06
+
+### Fixed
+
+- Issue causing the plugin to crash when using poetry 1.5+. Thanks to @masuwo3
+  for the fix: https://github.com/keattang/poetry-exec-plugin/pull/15
