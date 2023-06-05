@@ -23,6 +23,7 @@ types-toml = "^0.1.5"
 [tool.poetry-exec-plugin.commands]
 lint = "flake8 && black --check . && mypy ."
 test = "pytest"
+format = "black ."
 
 [tool.poetry.plugins."poetry.application.plugin"]
 exec = "poetry_exec_plugin.plugin:ExecPlugin"
@@ -32,4 +33,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 100
+line-length = 85
