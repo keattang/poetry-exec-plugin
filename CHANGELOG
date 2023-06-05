@@ -13,4 +13,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Issue causing the plugin to crash when using poetry 1.5+
+- Issue causing the plugin to crash when using poetry 1.5+. Thanks to @masuwo3
+  for the fix: https://github.com/keattang/poetry-exec-plugin/pull/15
