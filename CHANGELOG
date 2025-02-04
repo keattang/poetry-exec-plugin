@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 > Placeholder for any unreleased features/changes
 
+## [0.4.0] - 2025-02-04
+
+### Fixed
+
+- Updated dependencies to support Poetry 2.0
+
 ## [0.3.6] - 2023-06-06
 
 ### Fixed
