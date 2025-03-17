@@ -20,6 +20,7 @@ def test_execute(tmp_path: pathlib.Path) -> None:
         minimal_pyproject_template("test-script = 'echo Hello World'"),
     )
     os.chdir(tmp_path)
+
     proc = subprocess.Popen(
         ["poetry", "exec", "test-script"],
         stdout=subprocess.PIPE,
