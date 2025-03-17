@@ -1,6 +1,6 @@
 [project]
 name = "poetry-exec-plugin"
-version = "1.0.0"
+version = "1.0.1"
 
 [tool.poetry]
 name = "poetry-exec-plugin"
@@ -13,7 +13,7 @@ homepage = "https://github.com/keattang/poetry-exec-plugin"
 repository = "https://github.com/keattang/poetry-exec-plugin"
 
 [tool.poetry.dependencies]
-poetry = "^2.0.0"
+poetry = ">=1.2.0,<3.0.0"
 python = "^3.9"
 toml = "^0.10.2"
 pip = "^25.0.1"
