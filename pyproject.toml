@@ -1,3 +1,7 @@
+[project]
+name = "poetry-exec-plugin"
+version = "1.0.0"
+
 [tool.poetry]
 name = "poetry-exec-plugin"
 version = "1.0.0"
