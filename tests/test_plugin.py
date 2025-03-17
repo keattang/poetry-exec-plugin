@@ -26,8 +26,6 @@ def test_execute(tmp_path: pathlib.Path) -> None:
         stderr=subprocess.PIPE,
     )
     out, err = proc.communicate()
-    print("OUT", out)
-    print("ERROR:", err)
     assert b"Exec: echo Hello World" in out
     assert b"\nHello World\n" in out
     assert proc.returncode == 0
