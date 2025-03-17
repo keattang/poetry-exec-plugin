@@ -22,7 +22,7 @@ def test_execute(tmp_path: pathlib.Path) -> None:
     os.chdir(tmp_path)
 
     proc = subprocess.Popen(
-        ["poetry", "exec", "test-script"],
+        "poetry exec test-script",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=True,
@@ -41,7 +41,7 @@ def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
     proc = subprocess.Popen(
-        ["poetry", "exec", "test-script", "Hello World\n"],
+        "poetry exec test-script Hello World\n",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=True,
@@ -59,7 +59,7 @@ def test_arguments_propagation_with_double_dash(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
     proc = subprocess.Popen(
-        ["poetry", "exec", "test-script", "--", "Hello World\n"],
+        "poetry exec test-script -- Hello World\n",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=True,
