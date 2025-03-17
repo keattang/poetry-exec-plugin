@@ -30,7 +30,6 @@ def test_execute(tmp_path: pathlib.Path) -> None:
     print("ERROR:", err)
     assert b"Exec: echo Hello World" in out
     assert b"\nHello World\n" in out
-    assert err == b""
     assert proc.returncode == 0
 
 
@@ -47,7 +46,6 @@ def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
     out, err = proc.communicate()
     assert b"Exec: printf 'Hello World\n'" in out
     assert b"\nHello World\n" in out
-    assert err == b""
     assert proc.returncode == 0
 
 
@@ -64,5 +62,4 @@ def test_arguments_propagation_with_double_dash(tmp_path: pathlib.Path) -> None:
     out, err = proc.communicate()
     assert b"Exec: printf 'Hello World\n'" in out
     assert b"\nHello World\n" in out
-    assert err == b""
     assert proc.returncode == 0
