@@ -32,8 +32,6 @@ format = "black ."
 [tool.poetry.plugins."poetry.application.plugin"]
 exec = "poetry_exec_plugin.plugin:ExecPlugin"
 
-# [project.entry-points."poetry.plugin"]
-# exec = "poetry_exec_plugin.plugin:ExecPlugin"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

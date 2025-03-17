@@ -28,6 +28,7 @@ def test_execute(tmp_path: pathlib.Path) -> None:
         shell=True,
     )
     out, err = proc.communicate()
+    print(out)
     assert b"Exec: echo Hello World" in out
     assert b"\nHello World\n" in out
     assert err == b""
