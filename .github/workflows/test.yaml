@@ -9,32 +9,41 @@ on:
 
 jobs:
   build:
-    name: Build (Python ${{ matrix.python-version }}, Poetry ${{ matrix.poetry-version }})
+    name: Build (Python ${{ matrix.versions.python-version }}, Poetry ${{ matrix.versions.poetry-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
-        poetry-version: ["1.2.0", "2.1.1"]
-
+        versions:
+          - { python-version: "3.9", poetry-version: "1.2.0" }
+          - { python-version: "3.10", poetry-version: "1.2.0" }
+          - { python-version: "3.11", poetry-version: "1.2.0" }
+          # Poetry 1.2.0 does not support Python 3.12 and 3.13
+          # - { python-version: "3.12", poetry-version: "1.2.0" }
+          # - { python-version: "3.13", poetry-version: "1.2.0" }
+          - { python-version: "3.9", poetry-version: "2.1.1" }
+          - { python-version: "3.10", poetry-version: "2.1.1" }
+          - { python-version: "3.11", poetry-version: "2.1.1" }
+          - { python-version: "3.12", poetry-version: "2.1.1" }
+          - { python-version: "3.13", poetry-version: "2.1.1" }
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.versions.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.versions.python-version }}
 
-      - name: Install poetry
+      - name: Install poetry ${{ matrix.versions.poetry-version }}
         run: |
           python -m pip install --upgrade pip
-          curl -sSL https://install.python-poetry.org | python3 - --version ${{ matrix.poetry-version }}
+          curl -sSL https://install.python-poetry.org | python3 - --version ${{ matrix.versions.poetry-version }}
           poetry config virtualenvs.create false
 
       # If we are using an older version of poetry we need to regenerate the lock
       # file because the new file is not compatible with the older version.
       - name: Regenerate lock file
-        if: matrix.poetry-version == '1.2.0'
+        if: matrix.versions.poetry-version == '1.2.0'
         run: |
           rm poetry.lock
           poetry lock
