@@ -4,7 +4,9 @@
 name: Test Python Package
 
 on:
-  push: {}
+  push:
+    branches:
+      - main
   pull_request: {}
 
 jobs:
