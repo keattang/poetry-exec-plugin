@@ -16,11 +16,12 @@ repository = "https://github.com/keattang/poetry-exec-plugin"
 poetry = "^2.0.0"
 python = "^3.9"
 toml = "^0.10.2"
+pip = "^25.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.3.0"
 flake8 = "^3.9.2"
-mypy = "^0.910"
+mypy = "^1.15.0"
 pytest = "^6.2.4"
 types-toml = "^0.1.5"
 
