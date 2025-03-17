@@ -29,8 +29,8 @@ lint = "flake8 && black --check . && mypy ."
 test = "pytest"
 format = "black ."
 
-[tool.poetry.plugins."poetry.application.plugin"]
-exec = "poetry_exec_plugin.plugin:ExecPlugin"
+# [tool.poetry.plugins."poetry.application.plugin"]
+# exec = "poetry_exec_plugin.plugin:ExecPlugin"
 
 [project.entry-points."poetry.plugin"]
 exec = "poetry_exec_plugin.plugin:ExecPlugin"
