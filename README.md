@@ -4,7 +4,7 @@ A plugin for poetry that allows you to execute scripts defined in your pyproject
 
 ## Installation
 
-Installation requires poetry 1.2.0+. To install this plugin run:
+Installation requires poetry 2.0.0+. To install this plugin run:
 
 `poetry self add poetry-exec-plugin`
 
