@@ -3,8 +3,8 @@ import shlex
 import sys
 from typing import Any, List
 
-from cleo.application import Application
 from cleo.helpers import argument
+from poetry.console.application import Application
 from poetry.console.commands.env_command import EnvCommand
 from poetry.plugins.application_plugin import ApplicationPlugin
 
@@ -67,7 +67,7 @@ class ExecCommand(EnvCommand):
         os.chdir(pyproject_folder_path)
 
         self.line(f"Exec: {full_cmd}\n", style="info")
-        result = self.env.execute(*[shell, "-c", full_cmd])
+        returncode = self.env.execute(*[shell, "-c", full_cmd])
 
         # NOTE: If running on mac or linux nothing will be executed after the
         # previous line. This is because poetry uses os.execvpe to run the command
@@ -77,8 +77,7 @@ class ExecCommand(EnvCommand):
 
         self.line("\n✨ Done!")
 
-        if result:
-            return result.returncode
+        return returncode
 
 
 def factory() -> ExecCommand:

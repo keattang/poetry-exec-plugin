@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 > Placeholder for any unreleased features/changes
 
+## [1.0.0] - 2025-03-17
+
+### Changed
+
+- Updated the plugin to work with poetry 2.0.0.
+- Removed support for python 3.7 and 3.8.
+
 ## [0.3.6] - 2023-06-06
 
 ### Fixed
