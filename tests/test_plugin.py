@@ -20,15 +20,12 @@ def test_execute(tmp_path: pathlib.Path) -> None:
         minimal_pyproject_template("test-script = 'echo Hello World'"),
     )
     os.chdir(tmp_path)
-
     proc = subprocess.Popen(
-        "poetry exec test-script",
+        ["poetry", "exec", "test-script"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        shell=True,
     )
     out, err = proc.communicate()
-    print(out)
     assert b"Exec: echo Hello World" in out
     assert b"\nHello World\n" in out
     assert err == b""
@@ -41,10 +38,9 @@ def test_arguments_propagation(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
     proc = subprocess.Popen(
-        "poetry exec test-script Hello World\n",
+        ["poetry", "exec", "test-script", "Hello World\n"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        shell=True,
     )
     out, err = proc.communicate()
     assert b"Exec: printf 'Hello World\n'" in out
@@ -59,10 +55,9 @@ def test_arguments_propagation_with_double_dash(tmp_path: pathlib.Path) -> None:
     )
     os.chdir(tmp_path)
     proc = subprocess.Popen(
-        "poetry exec test-script -- Hello World\n",
+        ["poetry", "exec", "test-script", "--", "Hello World\n"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        shell=True,
     )
     out, err = proc.communicate()
     assert b"Exec: printf 'Hello World\n'" in out
